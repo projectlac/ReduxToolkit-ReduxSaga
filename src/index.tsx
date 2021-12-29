@@ -2,7 +2,7 @@ import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Router } from "react-router-dom";
 import App from "./App";
 import { store } from "./app/store";
 import "./index.css";
@@ -15,6 +15,9 @@ const theme = createTheme({
     primary: {
       main: red[500],
     },
+  },
+  typography: {
+    fontFamily: ['"Montserrat"', "sans-serif"].join(","),
   },
 });
 

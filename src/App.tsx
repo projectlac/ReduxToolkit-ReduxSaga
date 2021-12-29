@@ -1,14 +1,9 @@
-import cityApi from "api/cityApi";
 import { NotFound, PrivateRoute } from "components/Common";
 import { Admin } from "components/Layout";
 import LoginPage from "features/auth/pages/LoginPage";
-import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 function App() {
-  useEffect(() => {
-    cityApi.getAll().then((res) => res.data);
-  }, []);
   return (
     <div>
       <Routes>

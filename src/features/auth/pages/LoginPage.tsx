@@ -1,6 +1,15 @@
-import { Box, Button, Paper, Typography } from "@mui/material";
-import { makeStyles, createStyles } from "@mui/styles";
-import React from "react";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Paper,
+  Typography,
+} from "@mui/material";
+import { createStyles, makeStyles } from "@mui/styles";
+import { useAppDispatch, useAppSelector } from "app/hooks";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { authAction, selectIsLogin, selectIsLoginIn } from "../authSlice";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -18,6 +27,21 @@ const useStyles = makeStyles((theme: any) =>
 );
 const LoginPage = () => {
   const classes = useStyles();
+  const nav = useNavigate();
+  const isLogged = Boolean(localStorage.getItem("access_token"));
+  const isLogin = useAppSelector(selectIsLogin);
+  useEffect(() => {
+    if (isLogged) nav("/admin");
+  }, [isLogged]);
+  const dispatch = useAppDispatch();
+  const handleLogin = () => {
+    dispatch(
+      authAction.login({
+        username: "",
+        password: "",
+      })
+    );
+  };
   return (
     <div className={classes.root}>
       <Paper elevation={1} className={classes.box}>
@@ -25,7 +49,13 @@ const LoginPage = () => {
           Student Management
         </Typography>
         <Box mt={4}>
-          <Button variant="contained" fullWidth color="primary">
+          <Button
+            variant="contained"
+            fullWidth
+            color="primary"
+            onClick={handleLogin}
+          >
+            {isLogin && <CircularProgress size={20} color="secondary" />} &nbsp;
             Login
           </Button>
         </Box>
